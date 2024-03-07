@@ -9,7 +9,7 @@ namespace CurrencyBot
 {
     public class UserResponseParser : IUserResponseParser
     {
-        public bool IsUserResponseCorrect(string response)
+        public ParsingResults<ExchangeInfo> ParseExchangeInfo(string response)
         {
             throw new NotImplementedException();
         }

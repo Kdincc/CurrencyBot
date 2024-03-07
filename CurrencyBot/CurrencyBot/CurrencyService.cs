@@ -9,7 +9,7 @@ namespace CurrencyBot
 {
     public class CurrencyService : ICurrencyService
     {
-        public Task<ExchangeRate> GetExchangeRateAsync(string cuurencyCode, DateOnly date)
+        public Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info)
         {
             throw new NotImplementedException();
         }
