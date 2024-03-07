@@ -8,6 +8,6 @@ namespace CurrencyBot.Interfaces
 {
     public interface ICurrencyService
     {
-        public Task<ExchangeRate> GetExchangeRateAsync(string cuurencyCode, DateOnly date);
+        public Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info);
     }
 }
