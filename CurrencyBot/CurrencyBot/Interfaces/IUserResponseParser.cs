@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CurrencyBot.Interfaces
 {
-    public interface IUserResponseChecker
+    public interface IUserResponseParser
     {
         public bool IsUserResponseCorrect(string response);
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CurrencyBot
 {
-    public class UserResponseChecker : IUserResponseChecker
+    public class UserResponseParser : IUserResponseParser
     {
         public bool IsUserResponseCorrect(string response)
         {
