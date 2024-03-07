@@ -1,4 +1,5 @@
 ﻿using CurrencyBot.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,18 @@ namespace CurrencyBot
 {
     public class CurrencyService : ICurrencyService
     {
-        public Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info)
+        public async Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info)
         {
-            throw new NotImplementedException();
+            string apiUrl = $"https://api.privatbank.ua/p24api/exchange_rates?json&date={info.Date}";
+            using HttpClient client = new();
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+            string jsonString = await response.Content.ReadAsStringAsync();
+            ExchangeRateList exchangeList = JsonConvert.DeserializeObject<ExchangeRateList>(jsonString);
+
+            ExchangeRate rate = exchangeList.ExchangeRates.First(e => e.Currency == info.CurrencyCode);
+            
+            return rate;
         }
     }
 }
