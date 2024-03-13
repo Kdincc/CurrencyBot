@@ -1,9 +1,4 @@
 ﻿using CurrencyBot.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CurrencyBot
 {
@@ -11,7 +6,7 @@ namespace CurrencyBot
     {
         public bool ValidateBankResponse(HttpResponseMessage response)
         {
-            if (response.IsSuccessStatusCode) 
+            if (response.IsSuccessStatusCode)
             {
                 return true;
             }
@@ -35,7 +30,7 @@ namespace CurrencyBot
             bool isDateNotActual = DateOnly.FromDateTime(DateTime.Now) < info.Date;
             bool isDateOlderThanDiff = info.Date.Year < DateTime.Now.Year - possibleYearDiff;
 
-            if (isDateOlderThanDiff || isDateNotActual) 
+            if (isDateOlderThanDiff || isDateNotActual)
             {
                 return false;
             }

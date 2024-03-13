@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types.Enums;

@@ -1,10 +1,4 @@
 ﻿using CurrencyBot.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -34,7 +28,7 @@ namespace CurrencyBot
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Message is null) 
+            if (update.Message is null)
             {
                 return;
             }
@@ -43,7 +37,7 @@ namespace CurrencyBot
 
             var parsingResults = _parser.ParseExchangeInfo(update.Message.Text);
 
-            if (!parsingResults.IsValid) 
+            if (!parsingResults.IsValid)
             {
                 await botClient.SendTextMessageAsync(chatId, "Message not in correct format! Correct format lool like this: USD 01.01.2023", cancellationToken: cancellationToken);
 
@@ -54,7 +48,7 @@ namespace CurrencyBot
 
             var exchangeRate = await _currencyService.GetExchangeRateAsync(parsingResults.Result);
 
-            if (_errorHandler.IsErrorHandled) 
+            if (_errorHandler.IsErrorHandled)
             {
                 await botClient.SendTextMessageAsync(chatId, _errorHandler.ErrorMessage, cancellationToken: cancellationToken);
 
@@ -64,24 +58,24 @@ namespace CurrencyBot
             await ShowExchangeRateAsync(botClient, chatId, RoundExchangeRate(exchangeRate), cancellationToken);
         }
 
-        private async Task ShowExchangeRateAsync(ITelegramBotClient botClient, ChatId chatId, ExchangeRate exchangeRate, CancellationToken cancellationToken) 
+        private async Task ShowExchangeRateAsync(ITelegramBotClient botClient, ChatId chatId, ExchangeRate exchangeRate, CancellationToken cancellationToken)
         {
             await botClient.SendTextMessageAsync(chatId,
-                $"Here the exchange rate of {exchangeRate.BaseCurrency}", cancellationToken: cancellationToken);
+                $"{exchangeRate.Currency} to {exchangeRate.BaseCurrency}", cancellationToken: cancellationToken);
             await botClient.SendTextMessageAsync
                 (
                 chatId,
-                $"Base currency: {exchangeRate.BaseCurrency}" +
-                $"\nCurrency: {exchangeRate.Currency}" +
+                "Privat Bank rate:" +
+                $"\nBase currency: {exchangeRate.BaseCurrency}" +
                 $"\nPurchase: {exchangeRate.PurchaseRate}" +
                 $"\nSale: {exchangeRate.SaleRate}" +
-                $"\nPurchaseNB: {exchangeRate.PurchaseRateNB}" +
-                $"\nSaleNB: {exchangeRate.SaleRateNB}",
+                $"\n\nNational Bank rate:" +
+                $"\nPurchase/Sale: {exchangeRate.PurchaseRateNB}",
                 cancellationToken: cancellationToken
                 );
         }
 
-        private ExchangeRate RoundExchangeRate(ExchangeRate exchangeRate) 
+        private ExchangeRate RoundExchangeRate(ExchangeRate exchangeRate)
         {
             Math.Round(exchangeRate.SaleRate, 3);
             Math.Round(exchangeRate.SaleRateNB, 3);

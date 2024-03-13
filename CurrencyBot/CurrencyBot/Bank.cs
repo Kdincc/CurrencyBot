@@ -13,7 +13,7 @@ namespace CurrencyBot
             ExchangeRateList exchangeList = new();
             ExchangeRate exchangeRate = new();
 
-            if (!_validator.VilidateDate(info)) 
+            if (!_validator.VilidateDate(info))
             {
                 OnNext("Incorrect date, try check that date must be not older than 4 years");
 
@@ -22,7 +22,7 @@ namespace CurrencyBot
 
             HttpResponseMessage response = await ApiHelper.GetBankResponseByDateAsync(info.Date);
 
-            if (!_validator.ValidateBankResponse(response)) 
+            if (!_validator.ValidateBankResponse(response))
             {
                 OnNext("We have some troubles with bank connection, please try later");
 
