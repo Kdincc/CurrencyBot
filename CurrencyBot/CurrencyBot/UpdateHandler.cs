@@ -28,7 +28,7 @@ namespace CurrencyBot
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Message is null)
+            if (update.Message is null || string.IsNullOrEmpty(update.Message.Text))
             {
                 return;
             }
