@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CurrencyBot.Interfaces
 {
-    public interface ICurrencyService
+    public interface IBankErrorHandler : IObserver<string>
     {
-        public Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info);
+        public bool IsErrorHandled { get; }
+        public string ErrorMessage { get; }
     }
 }

@@ -8,7 +8,6 @@ namespace CurrencyBot
 {
     public class ConfigurationFile
     {
-        public string BankApi {  get; set; }
         public string BotToken { get; set; }
     }
 }

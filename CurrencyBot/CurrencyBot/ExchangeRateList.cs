@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace CurrencyBot
 {
     public class ExchangeRateList
     {
-        public List<ExchangeRate> ExchangeRates {  get; set; }
+        public List<ExchangeRate> ExchangeRate {  get; set; }
     }
 }
