@@ -1,4 +1,5 @@
-﻿using CurrencyBot.Interfaces;
+﻿using CurrencyBot.Data;
+using CurrencyBot.Interfaces;
 using System.Text.RegularExpressions;
 
 namespace CurrencyBot

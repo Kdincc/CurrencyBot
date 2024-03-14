@@ -1,4 +1,6 @@
-﻿namespace CurrencyBot.Interfaces
+﻿using CurrencyBot.Data;
+
+namespace CurrencyBot.Interfaces
 {
     public interface IBankValidator
     {

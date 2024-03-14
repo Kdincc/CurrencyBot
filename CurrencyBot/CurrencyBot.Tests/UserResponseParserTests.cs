@@ -8,13 +8,16 @@ namespace CurrencyBot.Tests
         private readonly IUserResponseParser _parser = new UserResponseParser();
 
         [TestMethod]
-        public void ParseExchangeRate()
+        [DataRow("", false)]
+        [DataRow("usd 1.2.2233", false)]
+        [DataRow("EUH 01.12.2022", true)]
+        public void ParseExchangeRate_IsCorrectValidation(string str, bool expected)
         {
-            string response = "Code: USD, Date: 12.03.2023";
+            bool actual;
 
-            var results = _parser.ParseExchangeInfo(response);
+            actual = _parser.ParseExchangeInfo(str).IsValid;
 
-            Assert.IsTrue(results.IsValid);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

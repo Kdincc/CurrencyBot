@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CurrencyBot.Data;
+using Newtonsoft.Json;
 using Telegram.Bot;
 
 namespace CurrencyBot

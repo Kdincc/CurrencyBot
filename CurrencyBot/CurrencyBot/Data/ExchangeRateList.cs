@@ -1,4 +1,4 @@
-﻿namespace CurrencyBot
+﻿namespace CurrencyBot.Data
 {
     public class ExchangeRateList
     {

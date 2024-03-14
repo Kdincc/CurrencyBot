@@ -1,4 +1,4 @@
-﻿namespace CurrencyBot
+﻿namespace CurrencyBot.Data
 {
     public class ExchangeInfo(DateOnly date, string currencyCode)
     {

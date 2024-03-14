@@ -1,4 +1,5 @@
-﻿using CurrencyBot.Interfaces;
+﻿using CurrencyBot.Data;
+using CurrencyBot.Interfaces;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
