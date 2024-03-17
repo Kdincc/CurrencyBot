@@ -1,4 +1,4 @@
-﻿namespace CurrencyBot
+﻿namespace CurrencyBot.BL
 {
     public static class ApiHelper
     {

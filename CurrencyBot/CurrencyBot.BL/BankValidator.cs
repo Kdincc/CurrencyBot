@@ -1,7 +1,7 @@
-﻿using CurrencyBot.Data;
-using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL.Interfaces;
+using CurrencyBot.Data;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public class BankValidator : IBankValidator
     {

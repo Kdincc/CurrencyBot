@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Telegram.Bot;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public static class TelegramBotFactory
     {

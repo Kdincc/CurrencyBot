@@ -1,6 +1,6 @@
 ﻿using CurrencyBot.Data;
 
-namespace CurrencyBot.Interfaces
+namespace CurrencyBot.BL.Interfaces
 {
     public interface IUserResponseParser
     {

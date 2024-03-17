@@ -1,8 +1,8 @@
-﻿using CurrencyBot.Data;
-using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL.Interfaces;
+using CurrencyBot.Data;
 using Newtonsoft.Json;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public class Bank(IBankValidator validator) : IBank
     {

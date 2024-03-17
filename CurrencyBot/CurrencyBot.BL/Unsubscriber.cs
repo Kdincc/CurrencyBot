@@ -1,4 +1,4 @@
-﻿namespace CurrencyBot
+﻿namespace CurrencyBot.BL
 {
     public class Unsubscriber<T>(List<IObserver<T>> observers, IObserver<T> observer) : IDisposable
     {

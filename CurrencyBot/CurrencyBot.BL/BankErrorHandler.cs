@@ -1,6 +1,6 @@
-﻿using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL.Interfaces;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public class BankErrorHandler : IBankErrorHandler
     {

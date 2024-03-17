@@ -1,4 +1,4 @@
-﻿namespace CurrencyBot.Interfaces
+﻿namespace CurrencyBot.BL.Interfaces
 {
     public interface IBankErrorHandler : IObserver<string>
     {

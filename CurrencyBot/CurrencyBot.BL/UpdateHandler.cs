@@ -1,11 +1,11 @@
-﻿using CurrencyBot.Data;
-using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL.Interfaces;
+using CurrencyBot.Data;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public class UpdateHandler(IUserResponseParser parser, IBank currencyService, IBankErrorHandler errorHandler) : IUpdateHandler
     {

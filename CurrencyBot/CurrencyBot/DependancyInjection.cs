@@ -1,4 +1,5 @@
-﻿using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL;
+using CurrencyBot.BL.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot.Polling;
 

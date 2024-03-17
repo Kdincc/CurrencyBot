@@ -1,8 +1,8 @@
-﻿using CurrencyBot.Data;
-using CurrencyBot.Interfaces;
+﻿using CurrencyBot.BL.Interfaces;
+using CurrencyBot.Data;
 using System.Text.RegularExpressions;
 
-namespace CurrencyBot
+namespace CurrencyBot.BL
 {
     public class UserResponseParser : IUserResponseParser
     {
