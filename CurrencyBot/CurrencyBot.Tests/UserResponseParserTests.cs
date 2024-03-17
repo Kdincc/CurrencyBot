@@ -1,4 +1,5 @@
-using CurrencyBot.Interfaces;
+using CurrencyBot.BL;
+using CurrencyBot.BL.Interfaces;
 
 namespace CurrencyBot.Tests
 {

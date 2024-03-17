@@ -1,10 +1,6 @@
-﻿using CurrencyBot.Data;
-using CurrencyBot.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CurrencyBot.BL;
+using CurrencyBot.BL.Interfaces;
+using CurrencyBot.Data;
 
 namespace CurrencyBot.Tests
 {
