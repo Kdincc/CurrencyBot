@@ -4,10 +4,11 @@ using Newtonsoft.Json;
 
 namespace CurrencyBot.BL
 {
-    public class Bank(IBankValidator validator) : IBank
+    public class Bank(IBankValidator validator, IApiHelper api) : IBank
     {
         private readonly List<IObserver<string>> _observers = [];
         private readonly IBankValidator _validator = validator;
+        private readonly IApiHelper _api = api;
 
         public async Task<ExchangeRate> GetExchangeRateAsync(ExchangeInfo info)
         {
@@ -21,7 +22,7 @@ namespace CurrencyBot.BL
                 return exchangeRate;
             }
 
-            HttpResponseMessage response = await ApiHelper.GetBankResponseByDateAsync(info.Date);
+            HttpResponseMessage response = await _api.GetBankResponseByDateAsync(info.Date);
 
             if (!_validator.ValidateBankResponse(response))
             {

@@ -1,4 +1,6 @@
 ﻿using CurrencyBot.BL;
+using CurrencyBot.BL.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
@@ -10,10 +12,12 @@ public class Program
 {
     static void Main(string[] args)
     {
-        var services = new ServiceCollection().RegisterServices();
+        IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        var services = new ServiceCollection().RegisterServices().RegisterSettings(configuration).RegisterClients(configuration);
         using var provider = services.BuildServiceProvider();
         IUpdateHandler updateHandler = provider.GetRequiredService<IUpdateHandler>();
-        ITelegramBotClient telegramBotClient = TelegramBotFactory.GetBot();
+        ITelegramBotFactory telegramBotFactory = provider.GetRequiredService<ITelegramBotFactory>();
+        ITelegramBotClient telegramBotClient = telegramBotFactory.GetBot();
         CancellationTokenSource source = new();
         ReceiverOptions receiverOptions = new()
         {

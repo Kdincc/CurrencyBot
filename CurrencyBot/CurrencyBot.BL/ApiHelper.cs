@@ -1,14 +1,18 @@
-﻿namespace CurrencyBot.BL
+﻿using CurrencyBot.BL.Interfaces;
+
+namespace CurrencyBot.BL
 {
-    public static class ApiHelper
+    public class ApiHelper(IHttpClientFactory factory) : IApiHelper
     {
-        public static async Task<HttpResponseMessage> GetBankResponseByDateAsync(DateOnly date)
+        private readonly IHttpClientFactory _factory = factory;
+
+        public async Task<HttpResponseMessage> GetBankResponseByDateAsync(DateOnly date)
         {
-            string apiUrl = $"https://api.privatbank.ua/p24api/exchange_rates?json&date={date}";
+            string queryString = $"?json&date={date}";
 
-            using HttpClient client = new();
+            var client = _factory.CreateClient("BankApi");
 
-            HttpResponseMessage message = await client.GetAsync(apiUrl);
+            HttpResponseMessage message = await client.GetAsync(queryString);
 
             return message;
         }
