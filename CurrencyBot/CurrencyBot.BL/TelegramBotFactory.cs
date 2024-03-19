@@ -11,7 +11,6 @@ namespace CurrencyBot.BL
             string configPath = $"{AppDomain.CurrentDomain.BaseDirectory}appsettings.json";
             var file = JsonConvert.DeserializeObject<ConfigurationFile>(File.ReadAllText(configPath));
 
-            TelegramBotClient telegramBotClient = new(file.BotToken);
 
             telegramBotClient.SetMyDescriptionAsync("This bot can give you the exchange rate of UAH to different currincies using Privat24, to start using bot enter the currency code and date");
 
