@@ -13,6 +13,7 @@ namespace CurrencyBot.BL
             var client = _factory.CreateClient("BankApi");
 
             HttpResponseMessage message = await client.GetAsync(queryString);
+            
 
             return message;
         }

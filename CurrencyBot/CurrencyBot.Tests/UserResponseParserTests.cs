@@ -14,10 +14,13 @@ namespace CurrencyBot.Tests
         [DataRow("EUH 01.12.2022", true)]
         public void ParseExchangeRate_IsCorrectValidation(string str, bool expected)
         {
+            //arrange
             bool actual;
 
+            //act
             actual = _parser.ParseExchangeInfo(str).IsValid;
 
+            //assert
             Assert.AreEqual(expected, actual);
         }
     }

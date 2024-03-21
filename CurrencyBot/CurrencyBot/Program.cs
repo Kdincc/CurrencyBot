@@ -15,9 +15,11 @@ public class Program
         IConfiguration configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         var services = new ServiceCollection().RegisterServices().RegisterSettings(configuration).RegisterClients(configuration);
         using var provider = services.BuildServiceProvider();
+
         IUpdateHandler updateHandler = provider.GetRequiredService<IUpdateHandler>();
         ITelegramBotFactory telegramBotFactory = provider.GetRequiredService<ITelegramBotFactory>();
         ITelegramBotClient telegramBotClient = telegramBotFactory.GetBot();
+
         CancellationTokenSource source = new();
         ReceiverOptions receiverOptions = new()
         {
