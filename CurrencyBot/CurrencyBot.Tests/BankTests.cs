@@ -14,22 +14,33 @@ namespace CurrencyBot.Tests
         private readonly Mock<IApiHelper> apiHelperMock;
         private readonly Mock<HttpResponseMessage> mockResponseMessage;
         private readonly IBank bank;
-
+        private readonly ExchangeRateList exchangeRateListToTest = new();
         public BankTests()
         {
             validatorMock = new();
             apiHelperMock = new();
             mockResponseMessage = new();
             bank = new Bank(validatorMock.Object, apiHelperMock.Object);
+
+            List<ExchangeRate> list = 
+                [
+                    new ExchangeRate("UAH", "PLN", 8.3541m, 8.3541m, 8.84m, 8.3m),
+                    new ExchangeRate("UAH", "GBP", 44.1328m, 44.1328m, 46.62m, 43.8m),
+                    new ExchangeRate("UAH", "EUR", 39.0754m, 39.0754m, 41m, 40m),
+                    new ExchangeRate("UAH", "USD", 36.5686m, 36.5686m, 38.9m, 38.4m)
+                ];
+
+            exchangeRateListToTest.ExchangeRate = list;
         }
 
         [TestMethod]
-        [DataRow("USD", "02.03.2023", 38.400, 38.900, 36.5686)]
+        [DataRow("USD", "02.03.2023", 38.4, 38.9, 36.5686)]
         public void GetExhangeRate_CorrectData(string expectedCode, string date, double expectedPurchase, double expectedSale, double nationalRate)
         {
             //arrange
             ExchangeRate expected = new() 
-            { 
+            {
+                BaseCurrency = "UAH",
                 Currency = expectedCode, 
                 PurchaseRate = (decimal)expectedPurchase,
                 SaleRate = (decimal)expectedSale,
@@ -38,6 +49,7 @@ namespace CurrencyBot.Tests
             };
             ExchangeInfo info = new(DateOnly.Parse(date), expectedCode);
             ExchangeRate actual;
+            File.WriteAllText("TestRate.json", JsonSerializer.Serialize(exchangeRateListToTest));
 
             //setup
             validatorMock.Setup(m => m.VilidateDate(info)).Returns(true);
@@ -47,7 +59,7 @@ namespace CurrencyBot.Tests
                 .ReturnsAsync(new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(File.ReadAllText("\\Task9\\CurrencyBot\\CurrencyBot.Tests\\TestRate.json"))
+                    Content = new StringContent(File.ReadAllText("TestRate.json"))
                 });
 
             //act
@@ -55,6 +67,9 @@ namespace CurrencyBot.Tests
 
             //assert
             Assert.AreEqual(expected, actual);
+
+            //clean up
+            File.Delete("TestRate.json");
         }
 
         [TestMethod]
@@ -66,6 +81,7 @@ namespace CurrencyBot.Tests
             ExchangeRate expected = new();
             ExchangeInfo info = new(DateOnly.Parse(date), expectedCode);
             ExchangeRate actual;
+            File.WriteAllText("TestRate.json", JsonSerializer.Serialize(exchangeRateListToTest));
 
             //setup
             validatorMock.Setup(m => m.VilidateDate(info)).Returns(validateDateResult);
@@ -75,7 +91,7 @@ namespace CurrencyBot.Tests
                 .ReturnsAsync(new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(File.ReadAllText("\\Task9\\CurrencyBot\\CurrencyBot.Tests\\TestRate.json"))
+                    Content = new StringContent(File.ReadAllText("TestRate.json"))
                 });
 
             //act
@@ -83,6 +99,9 @@ namespace CurrencyBot.Tests
 
             //assert
             Assert.AreEqual(expected, actual);
+
+            //clean up
+            File.Delete("TestRate.json");
         }
 
     }
