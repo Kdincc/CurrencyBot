@@ -1,6 +1,7 @@
 ﻿using CurrencyBot.BL;
 using CurrencyBot.BL.Interfaces;
 using CurrencyBot.Data;
+using System.Globalization;
 
 namespace CurrencyBot.Tests
 {
@@ -10,9 +11,9 @@ namespace CurrencyBot.Tests
         private readonly IBankValidator _bankValidator = new BankValidator();
 
         [TestMethod]
-        [DataRow("12.03.2004", false)]
-        [DataRow("12.03.2024", true)]
-        [DataRow("12.03.2034", false)]
+        [DataRow("2004-03-12", false)]
+        [DataRow("2024-03-12", true)]
+        [DataRow("2034-03-12", false)]
         public void ValidateDate_IsCorrectValidation(string dateString, bool expected)
         {
             //arrange
