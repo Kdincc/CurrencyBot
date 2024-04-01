@@ -15,9 +15,9 @@ namespace CurrencyBot.BL
             ExchangeRateList exchangeList = new();
             ExchangeRate exchangeRate = new();
 
-            if (!_validator.VilidateDate(info))
+            if (!_validator.ValidateDate(info))
             {
-                OnNext("Incorrect date, try check that date must be not older than 4 years");
+                OnNext("Incorrect date, try check that date must be not older than 4 years and is the date relevant");
 
                 return exchangeRate;
             }
@@ -35,7 +35,7 @@ namespace CurrencyBot.BL
 
             exchangeList = JsonConvert.DeserializeObject<ExchangeRateList>(jsonString);
 
-            if (!_validator.VilidateCurrencyCode(exchangeList, info))
+            if (!_validator.ValidateCurrencyCode(exchangeList, info))
             {
                 OnNext($"Currency with that code {info.CurrencyCode} not found");
 

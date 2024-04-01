@@ -40,7 +40,7 @@ namespace CurrencyBot.BL
 
             if (!parsingResults.IsValid)
             {
-                await botClient.SendTextMessageAsync(chatId, "Message not in correct format! Correct format lool like this: USD 01.01.2023", cancellationToken: cancellationToken);
+                await botClient.SendTextMessageAsync(chatId, "Message not in correct format or date is not valid! Correct format looks like this: USD 01.01.2023", cancellationToken: cancellationToken);
 
                 return;
             }

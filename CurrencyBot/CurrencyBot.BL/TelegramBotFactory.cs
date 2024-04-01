@@ -1,7 +1,6 @@
 ﻿using CurrencyBot.BL.Interfaces;
 using CurrencyBot.Data;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Telegram.Bot;
 
 namespace CurrencyBot.BL

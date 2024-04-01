@@ -1,14 +1,22 @@
 ﻿using CurrencyBot.BL;
 using CurrencyBot.BL.Interfaces;
 using CurrencyBot.Data;
-using System.Globalization;
+using Moq;
 
 namespace CurrencyBot.Tests
 {
     [TestClass]
     public class BankValidatorTests
     {
-        private readonly IBankValidator _bankValidator = new BankValidator();
+        private readonly IBankValidator _bankValidator;
+        private readonly Mock<TimeProvider> _timeProviderMock = new();
+
+        public BankValidatorTests()
+        {
+            _bankValidator = new BankValidator(_timeProviderMock.Object);
+
+            _timeProviderMock.Setup(m => m.GetUtcNow()).Returns(DateTimeOffset.UtcNow);
+        }
 
         [TestMethod]
         [DataRow("2004-03-12", false)]
@@ -21,7 +29,7 @@ namespace CurrencyBot.Tests
             var date = DateOnly.Parse(dateString);
 
             //assert
-            actual = _bankValidator.VilidateDate(new ExchangeInfo(date, ""));
+            actual = _bankValidator.ValidateDate(new ExchangeInfo(date, ""));
 
             //act
             Assert.AreEqual(expected, actual);
@@ -35,12 +43,12 @@ namespace CurrencyBot.Tests
         {
             //arrange
             ExchangeInfo info = new(new DateOnly(), code);
-            List<ExchangeRate> rates = [new ExchangeRate() { Currency = "first" }, new ExchangeRate() { Currency = "second"}, new ExchangeRate() { Currency= "third"}];
+            List<ExchangeRate> rates = [new ExchangeRate() { Currency = "first" }, new ExchangeRate() { Currency = "second" }, new ExchangeRate() { Currency = "third" }];
             ExchangeRateList rateList = new() { ExchangeRate = rates };
             bool actual;
 
             //act
-            actual = _bankValidator.VilidateCurrencyCode(rateList, info);
+            actual = _bankValidator.ValidateCurrencyCode(rateList, info);
 
             //assert
             Assert.AreEqual(expected, actual);

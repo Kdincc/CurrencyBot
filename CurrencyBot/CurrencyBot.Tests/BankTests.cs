@@ -22,7 +22,7 @@ namespace CurrencyBot.Tests
             mockResponseMessage = new();
             bank = new Bank(validatorMock.Object, apiHelperMock.Object);
 
-            List<ExchangeRate> list = 
+            List<ExchangeRate> list =
                 [
                     new ExchangeRate("UAH", "PLN", 8.3541m, 8.3541m, 8.84m, 8.3m),
                     new ExchangeRate("UAH", "GBP", 44.1328m, 44.1328m, 46.62m, 43.8m),
@@ -34,14 +34,14 @@ namespace CurrencyBot.Tests
         }
 
         [TestMethod]
-        [DataRow("USD", "02.03.2023", 38.4, 38.9, 36.5686)]
+        [DataRow("USD", "2023-02-03", 38.4, 38.9, 36.5686)]
         public void GetExhangeRate_CorrectData(string expectedCode, string date, double expectedPurchase, double expectedSale, double nationalRate)
         {
             //arrange
-            ExchangeRate expected = new() 
+            ExchangeRate expected = new()
             {
                 BaseCurrency = "UAH",
-                Currency = expectedCode, 
+                Currency = expectedCode,
                 PurchaseRate = (decimal)expectedPurchase,
                 SaleRate = (decimal)expectedSale,
                 PurchaseRateNB = (decimal)nationalRate,
@@ -52,9 +52,9 @@ namespace CurrencyBot.Tests
             File.WriteAllText("TestRate.json", JsonSerializer.Serialize(exchangeRateListToTest));
 
             //setup
-            validatorMock.Setup(m => m.VilidateDate(info)).Returns(true);
+            validatorMock.Setup(m => m.ValidateDate(info)).Returns(true);
             validatorMock.Setup(m => m.ValidateBankResponse(It.IsAny<HttpResponseMessage>())).Returns(true);
-            validatorMock.Setup(m => m.VilidateCurrencyCode(It.IsAny<ExchangeRateList>(), info)).Returns(true);
+            validatorMock.Setup(m => m.ValidateCurrencyCode(It.IsAny<ExchangeRateList>(), info)).Returns(true);
             apiHelperMock.Setup(m => m.GetBankResponseByDateAsync(DateOnly.Parse(date)))
                 .ReturnsAsync(new HttpResponseMessage()
                 {
@@ -84,9 +84,9 @@ namespace CurrencyBot.Tests
             File.WriteAllText("TestRate.json", JsonSerializer.Serialize(exchangeRateListToTest));
 
             //setup
-            validatorMock.Setup(m => m.VilidateDate(info)).Returns(validateDateResult);
+            validatorMock.Setup(m => m.ValidateDate(info)).Returns(validateDateResult);
             validatorMock.Setup(m => m.ValidateBankResponse(It.IsAny<HttpResponseMessage>())).Returns(true);
-            validatorMock.Setup(m => m.VilidateCurrencyCode(It.IsAny<ExchangeRateList>(), info)).Returns(validateCodeResult);
+            validatorMock.Setup(m => m.ValidateCurrencyCode(It.IsAny<ExchangeRateList>(), info)).Returns(validateCodeResult);
             apiHelperMock.Setup(m => m.GetBankResponseByDateAsync(DateOnly.Parse(date)))
                 .ReturnsAsync(new HttpResponseMessage()
                 {
