@@ -3,8 +3,10 @@ using CurrencyBot.Data;
 
 namespace CurrencyBot.BL
 {
-    public class BankValidator : IBankValidator
+    public class BankValidator(TimeProvider timeProvider) : IBankValidator
     {
+        private readonly TimeProvider _timeProvider = timeProvider;
+
         public bool ValidateBankResponse(HttpResponseMessage response)
         {
             if (response.IsSuccessStatusCode)
@@ -15,7 +17,7 @@ namespace CurrencyBot.BL
             return false;
         }
 
-        public bool VilidateCurrencyCode(ExchangeRateList list, ExchangeInfo info)
+        public bool ValidateCurrencyCode(ExchangeRateList list, ExchangeInfo info)
         {
             if (list.ExchangeRate is null || !list.ExchangeRate.Any(e => e.Currency == info.CurrencyCode))
             {
@@ -25,10 +27,10 @@ namespace CurrencyBot.BL
             return true;
         }
 
-        public bool VilidateDate(ExchangeInfo info)
+        public bool ValidateDate(ExchangeInfo info)
         {
             int possibleYearDiff = 4;
-            bool isDateNotActual = DateOnly.FromDateTime(DateTime.Now) < info.Date;
+            bool isDateNotActual = DateOnly.FromDateTime(_timeProvider.GetUtcNow().Date) < info.Date;
             bool isDateOlderThanDiff = info.Date.Year < DateTime.Now.Year - possibleYearDiff;
 
             if (isDateOlderThanDiff || isDateNotActual)
