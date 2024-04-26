@@ -8,7 +8,7 @@ namespace CurrencyBot.BL
 
         public async Task<HttpResponseMessage> GetBankResponseByDateAsync(DateOnly date)
         {
-            string queryString = $"?json&date={date}";
+            string queryString = $"?json&date={date:dd.MM.yyyy}";
 
             var client = _factory.CreateClient("BankApi");
 

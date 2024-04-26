@@ -31,6 +31,7 @@ namespace CurrencyBot.BL
         {
             int possibleYearDiff = 4;
             bool isDateNotActual = DateOnly.FromDateTime(_timeProvider.GetLocalNow().Date) < info.Date;
+            var s = DateOnly.FromDateTime(_timeProvider.GetLocalNow().Date);
             bool isDateOlderThanDiff = info.Date.Year < _timeProvider.GetLocalNow().Year - possibleYearDiff;
 
             if (isDateOlderThanDiff || isDateNotActual)
