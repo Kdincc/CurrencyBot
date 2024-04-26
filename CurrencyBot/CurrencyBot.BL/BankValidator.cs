@@ -30,8 +30,8 @@ namespace CurrencyBot.BL
         public bool ValidateDate(ExchangeInfo info)
         {
             int possibleYearDiff = 4;
-            bool isDateNotActual = DateOnly.FromDateTime(_timeProvider.GetUtcNow().Date) < info.Date;
-            bool isDateOlderThanDiff = info.Date.Year < DateTime.Now.Year - possibleYearDiff;
+            bool isDateNotActual = DateOnly.FromDateTime(_timeProvider.GetLocalNow().Date) < info.Date;
+            bool isDateOlderThanDiff = info.Date.Year < _timeProvider.GetLocalNow().Year - possibleYearDiff;
 
             if (isDateOlderThanDiff || isDateNotActual)
             {
