@@ -15,6 +15,7 @@ namespace CurrencyBot.Tests
         {
             _bankValidator = new BankValidator(_timeProviderMock.Object);
 
+            _timeProviderMock.Setup(m => m.LocalTimeZone).Returns(TimeZoneInfo.Local);
             _timeProviderMock.Setup(m => m.GetUtcNow()).Returns(DateTimeOffset.UtcNow);
         }
 
