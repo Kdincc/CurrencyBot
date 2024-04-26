@@ -78,10 +78,10 @@ namespace CurrencyBot.BL
 
         private ExchangeRate RoundExchangeRate(ExchangeRate exchangeRate)
         {
-            Math.Round(exchangeRate.SaleRate, 3);
-            Math.Round(exchangeRate.SaleRateNB, 3);
-            Math.Round(exchangeRate.PurchaseRate, 3);
-            Math.Round(exchangeRate.PurchaseRateNB, 3);
+            exchangeRate.SaleRate = Math.Round(exchangeRate.SaleRate, 3);
+            exchangeRate.SaleRateNB = Math.Round(exchangeRate.SaleRateNB, 3);
+            exchangeRate.PurchaseRate = Math.Round(exchangeRate.PurchaseRate, 3);
+            exchangeRate.PurchaseRateNB = Math.Round(exchangeRate.PurchaseRateNB, 3);
 
             return exchangeRate;
         }
