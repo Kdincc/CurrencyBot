@@ -29,7 +29,7 @@ namespace CurrencyBot.BL
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            if (update.Message is null || string.IsNullOrEmpty(update.Message.Text))
+            if (update.Message is null || string.IsNullOrEmpty(update.Message.Text) || update.Message.Text.StartsWith("\\start"))
             {
                 return;
             }
